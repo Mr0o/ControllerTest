@@ -17,6 +17,7 @@ except ImportError:
     except ImportError:
         print("Failed to install pygame! Please install it manually with 'python -m pip install pygame'")
         quit()
+    print("Pygame installed successfully!")
 
 
 import pygame
