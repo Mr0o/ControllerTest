@@ -8,15 +8,14 @@ except ImportError:
     import os
     try:
         os.system("python -m pip install pygame")
-    except Exception as e:
-        print("Failed to install pygame! Please install it manually with 'python -m pip install pygame'")
-        print("Error: " + str(e))
-        quit()
-    try:
         import pygame
-    except ImportError:
-        print("Failed to install pygame! Please install it manually with 'python -m pip install pygame'")
-        quit()
+    except:
+        try:
+            os.system("python3 -m pip install pygame")
+            import pygame
+        except:
+            print("Failed to install pygame. Please make sure you have pip installed correctly")
+            quit()
     print("Pygame installed successfully!")
 
 
