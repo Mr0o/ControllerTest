@@ -1,5 +1,7 @@
 # Controller Test
 
+### [_`Click here to download`_](https://github.com/Mr0o/ControllerTest/archive/refs/heads/master.zip)
+
 </br>
 
 ## **_What is this?_**
@@ -11,6 +13,8 @@ This is a simple program that allows you to test your controller's joysticks and
     
     Some controllers have different button mappings than others, this program can help you find out what button is what.
 
+</br>
+
 # Screenshot
 <img src="screenshot.png" width="640"/>
 
@@ -21,7 +25,7 @@ This is a simple program that allows you to test your controller's joysticks and
 **This program is compatible with both Windows and Linux. MacOS has not been tested but it should also work.**
 
 1) Install Python 3
-2) Download this repository using the green button on the top right or if you have _git_ installed you can use the command:
+2) Download this repository using [_**this link**_](https://github.com/Mr0o/ControllerTest/archive/refs/heads/master.zip) or if you have _git_ installed you can use the command:
 ```bash
     git clone https://github.com/Mr0o/Pygame_Controller.git
 ```
