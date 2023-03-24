@@ -4,7 +4,7 @@ from math import atan2
 try:
     import pygame
 except ImportError:
-    print("Pygame is not installed! Installing it now...")
+    print("Pygame is not installed: Installing it now...")
     import os
     try:
         os.system("python -m pip install pygame")
@@ -21,6 +21,9 @@ except ImportError:
 
 
 import pygame
+
+# This value determines the refresh rate of the program. 60 fps should be fine for most cases and is recommended.
+TICKRATE = 60
 
 pygame.init()
 
@@ -82,8 +85,10 @@ while(True):
         joystick.init()
         joystickConnected = True
         #print(joystick.get_name())
+        pygame.display.set_caption("Controller Test - Connected")
     except:
         joystickConnected = False
+        pygame.display.set_caption("Controller Test - Waiting for controller...")
 
     if joystickConnected:
         # axis for xbox controller (default axis mapping)
@@ -105,6 +110,7 @@ while(True):
         if round(joystick.get_axis(rightAxis_X), 1) < 0.2 and round(joystick.get_axis(rightAxis_X), 1) > -0.2 and round(joystick.get_axis(rightAxis_Y), 1) < 0.2 and round(joystick.get_axis(rightAxis_Y), 1) > -0.2:
             rightJoystickAngle = 0
     else:
+        # if no joystick is connected, set the joystick angles to 0
         rightJoystickAngle = 0
         leftJoystickAngle = 0
     
@@ -153,5 +159,5 @@ while(True):
 
     pygame.display.update()
 
-    clock.tick(60)
+    clock.tick(TICKRATE)
         
