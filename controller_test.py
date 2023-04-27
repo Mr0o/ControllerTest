@@ -6,11 +6,11 @@ try:
 except ImportError:
     print("Pygame is not installed: Installing it now...")
     import os
-    try:
+    try: # attempt 1
         os.system("python -m pip install pygame")
         import pygame
     except:
-        try:
+        try: # attempt 2
             os.system("python3 -m pip install pygame")
             import pygame
         except:
@@ -95,11 +95,12 @@ while(True):
         leftAxis_Y = 1
         rightAxis_X = 2
         rightAxis_Y = 3
-        # check for PS3 or PS4 controller and change the right joystick mapping ("Wireless Controller" is bluetooth and the others are USB)
-        if joystick.get_name() == "Wireless Controller" or joystick.get_name() == "Sony Interactive Entertainment Wireless Controller" or joystick.get_name() == "Sony Computer Entertainment Wireless Controller" or joystick.get_name() == "Sony PLAYSTATION(R)3 Controller" or joystick.get_name() == "ShanWan PLAYSTATION(R)3 Controller":
+        # check if the joystick contains the word Sony, Playstation or Wireless
+        if joystick.get_name().find("Wireless Controller") != -1 or joystick.get_name().find("PLAYSTATION") != -1 or joystick.get_name().find("SONY") != -1 or joystick.get_name().find("Playstation") != -1 or joystick.get_name().find("Sony") != -1:
             rightAxis_X = 3
             rightAxis_Y = 4
-        elif joystick.get_name() == "Xbox One Wired Controller" or joystick.get_name() == "Xbox One Controller":
+        # check if the joystick contains the word Xbox
+        elif joystick.get_name().find("Xbox") != -1 or joystick.get_name().find("XBOX") != -1 or joystick.get_name().find("xbox") != -1:
             rightAxis_X = 3
             rightAxis_Y = 4
         rightJoystickAngle = getAngleOfJoystick(rightAxis_X, rightAxis_Y)
