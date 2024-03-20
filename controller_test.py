@@ -140,18 +140,26 @@ while(True):
         screen.blit(textFont.render(str(rightJoystickAngle), True, (255, 255, 255)), (WIDTH/2 + 180, HEIGHT/2 +110))
 
         # draw both triggers
+        
+        try:
+            # normalize the trigger values to 0 - 100
+            leftTriggerValue = round((joystick.get_axis(leftTrigger) * 100) * 0.5 + 50, 1)
+            rightTriggerValue = round((joystick.get_axis(rightTrigger) * 100) * 0.5 + 50, 1)
+            pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+            pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+            pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, leftTriggerValue, 20))
+            pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, rightTriggerValue, 20))
 
-        # normalize the trigger values to 0 - 100
-        leftTriggerValue = round((joystick.get_axis(leftTrigger) * 100) * 0.5 + 50, 1)
-        rightTriggerValue = round((joystick.get_axis(rightTrigger) * 100) * 0.5 + 50, 1)
-
-        pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
-        pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
-        pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, leftTriggerValue, 20))
-        pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, rightTriggerValue, 20))
-
-        screen.blit(textFont.render(str(leftTriggerValue), True, (255, 255, 255)), (WIDTH/2 - 200 - 50, HEIGHT/2 - 170))
-        screen.blit(textFont.render(str(rightTriggerValue), True, (255, 255, 255)), (WIDTH/2 + 200 - 50, HEIGHT/2 - 170))
+            screen.blit(textFont.render(str(leftTriggerValue), True, (255, 255, 255)), (WIDTH/2 - 200 - 50, HEIGHT/2 - 170))
+            screen.blit(textFont.render(str(rightTriggerValue), True, (255, 255, 255)), (WIDTH/2 + 200 - 50, HEIGHT/2 - 170))
+        except:
+            # Invalid axis, set the trugger values "N/A"
+            pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+            pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+            pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, 0, 20))
+            pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, 0, 20))
+            screen.blit(textFont.render("N/A", True, (255, 255, 255)), (WIDTH/2 - 200 - 50, HEIGHT/2 - 170))
+            screen.blit(textFont.render("N/A", True, (255, 255, 255)), (WIDTH/2 + 200 - 50, HEIGHT/2 - 170))
 
         # check that the window is focused
         if not isWindowFocused:
