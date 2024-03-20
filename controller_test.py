@@ -5,18 +5,15 @@ try:
     import pygame
 except ImportError:
     print("Pygame is not installed: Installing it now...")
-    import os
-    try: # attempt 1
-        os.system("python -m pip install pygame")
+    import sys
+    import subprocess
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "pygame"])
         import pygame
     except:
-        try: # attempt 2
-            os.system("python3 -m pip install pygame")
-            import pygame
-        except:
-            print("Failed to install pygame. Please make sure you have pip installed correctly")
-            quit()
-    print("Pygame installed successfully!")
+        print("Failed to install pygame! \n\nPlease install it manually by running: \n \tpip install pygame\n")
+        exit(1)
+
 
 
 import pygame
