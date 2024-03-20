@@ -95,12 +95,14 @@ while(True):
         leftAxis_Y = 1
         rightAxis_X = 2
         rightAxis_Y = 3
+        leftTrigger = 2
+        rightTrigger = 5
         # check if the joystick contains the word Sony, Playstation or Wireless
-        if joystick.get_name().find("Wireless Controller") != -1 or joystick.get_name().find("PLAYSTATION") != -1 or joystick.get_name().find("SONY") != -1 or joystick.get_name().find("Playstation") != -1 or joystick.get_name().find("Sony") != -1:
+        if joystick.get_name().upper().find("WIRELESS") != -1 or joystick.get_name().upper().find("PLAYSTATION") != -1 or joystick.get_name().upper().find("SONY") != -1:
             rightAxis_X = 3
             rightAxis_Y = 4
         # check if the joystick contains the word Xbox
-        elif joystick.get_name().find("Xbox") != -1 or joystick.get_name().find("XBOX") != -1 or joystick.get_name().find("xbox") != -1:
+        elif joystick.get_name().upper().find("XBOX") != -1:
             rightAxis_X = 3
             rightAxis_Y = 4
         rightJoystickAngle = getAngleOfJoystick(rightAxis_X, rightAxis_Y)
@@ -137,13 +139,27 @@ while(True):
         pygame.draw.circle(screen, (255, 0, 0),     (WIDTH/2 + 200 + int(joystick.get_axis(rightAxis_X) * 100), HEIGHT/2 + int(joystick.get_axis(rightAxis_Y) * 100)), 10, 1)
         screen.blit(textFont.render(str(rightJoystickAngle), True, (255, 255, 255)), (WIDTH/2 + 180, HEIGHT/2 +110))
 
+        # draw both triggers
+
+        # normalize the trigger values to 0 - 100
+        leftTriggerValue = round((joystick.get_axis(leftTrigger) * 100) * 0.5 + 50, 1)
+        rightTriggerValue = round((joystick.get_axis(rightTrigger) * 100) * 0.5 + 50, 1)
+
+        pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+        pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+        pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, leftTriggerValue, 20))
+        pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, rightTriggerValue, 20))
+
+        screen.blit(textFont.render(str(leftTriggerValue), True, (255, 255, 255)), (WIDTH/2 - 200 - 50, HEIGHT/2 - 170))
+        screen.blit(textFont.render(str(rightTriggerValue), True, (255, 255, 255)), (WIDTH/2 + 200 - 50, HEIGHT/2 - 170))
+
         # check that the window is focused
         if not isWindowFocused:
             screen.blit(bigWarningFont.render("Please focus this window!", True, (255, 50, 10)), (WIDTH/2 - 200, HEIGHT/2 - 140))
             screen.blit(textFont.render("(click on it)", True, (255, 50, 10)), (WIDTH/2 - 50, HEIGHT/2 - 100))
 
     else:
-        screen.blit(textFont.render("No controller connected", True, (255, 255, 255)), (0, 0))
+        screen.blit(textFont.render("No controller connected - Waiting for controller...", True, (255, 255, 255)), (0, 0))
         
         # draw both joysticks at default position
 
@@ -156,6 +172,16 @@ while(True):
         pygame.draw.circle(screen, (255, 255, 255), (WIDTH/2 + 200, HEIGHT/2), 10, 1)
         pygame.draw.circle(screen, (255, 0, 0),     (WIDTH/2 + 200, HEIGHT/2), 10, 1)
         screen.blit(textFont.render(str(rightJoystickAngle), True, (255, 255, 255)), (WIDTH/2 + 180, HEIGHT/2 +110))
+
+        # draw both triggers at default position
+        pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 - 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+        pygame.draw.rect(screen, (255, 255, 255), (WIDTH/2 + 200 - 50, HEIGHT/2 - 150, 100, 20), 1)
+        pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 - 200 - 50, HEIGHT/2 + 150, 0, 20))
+        pygame.draw.rect(screen, (255, 0, 0), (WIDTH/2 + 200 - 50, HEIGHT/2 + 150, 0, 20))
+        screen.blit(textFont.render("0.0", True, (255, 255, 255)), (WIDTH/2 - 200 - 50, HEIGHT/2 - 170))
+        screen.blit(textFont.render("0.0", True, (255, 255, 255)), (WIDTH/2 + 200 - 50, HEIGHT/2 - 170))
+        
+
 
     pygame.display.update()
 
